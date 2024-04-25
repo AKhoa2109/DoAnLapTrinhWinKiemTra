@@ -1,0 +1,300 @@
+﻿<Window
+    x:Class="TraoDoiDo.DangDo_Sua"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:TraoDoiDo"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="FDangDoSua"
+    Title="DangDo_Dang"
+    Width="940"
+    Height="850"
+    Background="{DynamicResource MaterialDesignPaper}"
+    FontFamily="{DynamicResource MaterialDesignFont}"
+    Loaded="FDangDoSua_Loaded"
+    TextElement.FontSize="13"
+    TextElement.FontWeight="Regular"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    TextOptions.TextFormattingMode="Ideal"
+    TextOptions.TextRenderingMode="Auto"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    mc:Ignorable="d">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="35" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <local:ThanhDieuKhienUC Margin="0,-4,0,0" Tag="" />
+        </Grid>
+        <Border Grid.Row="1" Background="{StaticResource GridBackgroundBrush}">
+            <TextBlock
+                Margin="0,3,10,10"
+                FontSize="20"
+                Foreground="WhiteSmoke"
+                Text="Thông tin sản phẩm"
+                TextAlignment="Center"
+                TextWrapping="Wrap" />
+        </Border>
+
+        <Grid Grid.Row="2" Background="WhiteSmoke">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <materialDesign:Card Grid.Column="0" Background="#FFFAFAFA">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0">
+                        <TextBox
+                            x:Name="txtbIdSanPham"
+                            Margin="20,10,20,0"
+                            materialDesign:HintAssist.Hint="ID đồ"
+                            IsReadOnly="True"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                            TextWrapping="Wrap"
+                            VerticalScrollBarVisibility="Auto" />
+                        <TextBox
+                            x:Name="txtbTen"
+                            Margin="20,10,20,0"
+                            materialDesign:HintAssist.Hint="Tên đồ"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                            TextWrapping="Wrap"
+                            VerticalScrollBarVisibility="Auto" />
+
+                        <ComboBox
+                            x:Name="txtbLoai"
+                            MinWidth="72"
+                            Margin="20,10,20,0"
+                            materialDesign:HintAssist.FloatingOffset="0, -18"
+                            materialDesign:HintAssist.FloatingScale="0.7"
+                            materialDesign:HintAssist.Hint="Loại"
+                            IsEditable="True"
+                            Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+
+                            <ComboBoxItem Content="Quần áo" />
+                            <ComboBoxItem Content="Đồ điện tử" />
+                            <ComboBoxItem Content="Đồ chơi" />
+                            <ComboBoxItem Content="Đồ gia dụng" />
+                            <ComboBoxItem Content="Đồ nội thất" />
+                            <ComboBoxItem Content="Sách" />
+                            <ComboBoxItem Content="Đồ dùng văn phòng phẩm" />
+
+
+                        </ComboBox>
+
+                        <local:TangGiamUC x:Name="ucTangGiamSoLuongTong" Hint="Số lượng tổng" />
+                        <local:TangGiamUC x:Name="ucTangGiamSoLuongDaBan" Hint="Số lượng đã bán" />
+
+
+                        <TextBox
+                            x:Name="txtbGiaGoc"
+                            Margin="20,10,20,0"
+                            materialDesign:HintAssist.Hint="Giá gốc"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                            TextWrapping="Wrap"
+                            VerticalScrollBarVisibility="Auto" >
+
+                        </TextBox>
+                        <TextBox
+                            x:Name="txtbGiaBan"
+                            Margin="20,10,20,0"
+                            materialDesign:HintAssist.Hint="Giá bán"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                            TextWrapping="Wrap"
+                            VerticalScrollBarVisibility="Auto" />
+                        <TextBox
+                            x:Name="txtbPhiShip"
+                            Margin="20,10,20,0"
+                            materialDesign:HintAssist.Hint="Phí ship"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                            TextWrapping="Wrap"
+                            VerticalScrollBarVisibility="Auto" />
+                        <ComboBox
+                            x:Name="cboNoiBan"
+                            Margin="20,10,20,0"
+                            materialDesign:HintAssist.FloatingOffset="0, -18"
+                            materialDesign:HintAssist.FloatingScale="0.7"
+                            materialDesign:HintAssist.Hint="Nơi bán"
+                            IsEditable="True"
+                            Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                            <ComboBoxItem Content="Hà Nội" />
+                            <ComboBoxItem Content="Hồ Chí Minh" />
+                            <ComboBoxItem Content="Đà Nẵng" />
+                            <ComboBoxItem Content="Hải Phòng" />
+                            <ComboBoxItem Content="Nha Trang" />
+                            <ComboBoxItem Content="Đồng Tháp" />
+                            <ComboBoxItem Content="An Giang" />
+                            <ComboBoxItem Content="Đà Lạt" />
+                            <ComboBoxItem Content="Cần Thơ" />
+                            <ComboBoxItem Content="Phú Quốc" />
+                            <ComboBoxItem Content="Bà Rịa - Vũng Tàu" />
+                            <ComboBoxItem Content="Bắc Giang" />
+                            <ComboBoxItem Content="Bắc Kạn" />
+                            <ComboBoxItem Content="Bạc Liêu" />
+                            <ComboBoxItem Content="Bắc Ninh" />
+                            <ComboBoxItem Content="Bến Tre" />
+                            <ComboBoxItem Content="Bình Định" />
+                            <ComboBoxItem Content="Bình Dương" />
+                            <ComboBoxItem Content="Bình Phước" />
+                            <ComboBoxItem Content="Bình Thuận" />
+                            <ComboBoxItem Content="Cà Mau" />
+                            <ComboBoxItem Content="Cao Bằng" />
+                            <ComboBoxItem Content="Đắk Lắk" />
+                            <ComboBoxItem Content="Đắk Nông" />
+                            <ComboBoxItem Content="Điện Biên" />
+                            <ComboBoxItem Content="Đồng Nai" />
+                            <ComboBoxItem Content="Gia Lai" />
+                            <ComboBoxItem Content="Hà Giang" />
+                            <ComboBoxItem Content="Hà Nam" />
+                            <ComboBoxItem Content="Hà Tĩnh" />
+                            <ComboBoxItem Content="Hải Dương" />
+                            <ComboBoxItem Content="Hậu Giang" />
+                            <ComboBoxItem Content="Hòa Bình" />
+                            <ComboBoxItem Content="Hưng Yên" />
+                            <ComboBoxItem Content="Khánh Hòa" />
+                            <ComboBoxItem Content="Kiên Giang" />
+                            <ComboBoxItem Content="Kon Tum" />
+                            <ComboBoxItem Content="Lai Châu" />
+                            <ComboBoxItem Content="Lâm Đồng" />
+                            <ComboBoxItem Content="Lạng Sơn" />
+                            <ComboBoxItem Content="Lào Cai" />
+                            <ComboBoxItem Content="Long An" />
+                            <ComboBoxItem Content="Nam Định" />
+                            <ComboBoxItem Content="Nghệ An" />
+                            <ComboBoxItem Content="Ninh Bình" />
+                            <ComboBoxItem Content="Ninh Thuận" />
+                            <ComboBoxItem Content="Phú Thọ" />
+                            <ComboBoxItem Content="Quảng Bình" />
+                            <ComboBoxItem Content="Quảng Nam" />
+                            <ComboBoxItem Content="Quảng Ngãi" />
+                            <ComboBoxItem Content="Quảng Ninh" />
+                            <ComboBoxItem Content="Quảng Trị" />
+                            <ComboBoxItem Content="Sóc Trăng" />
+                            <ComboBoxItem Content="Sơn La" />
+                            <ComboBoxItem Content="Tây Ninh" />
+                            <ComboBoxItem Content="Thái Bình" />
+                            <ComboBoxItem Content="Thái Nguyên" />
+                            <ComboBoxItem Content="Thanh Hóa" />
+                            <ComboBoxItem Content="Thừa Thiên Huế" />
+                            <ComboBoxItem Content="Tiền Giang" />
+                            <ComboBoxItem Content="Trà Vinh" />
+                            <ComboBoxItem Content="Tuyên Quang" />
+                            <ComboBoxItem Content="Vĩnh Long" />
+                            <ComboBoxItem Content="Vĩnh Phúc" />
+                            <ComboBoxItem Content="Yên Bái" />
+                        </ComboBox>
+                        <ComboBox
+                            x:Name="cboXuatXu"
+                            Margin="20,10,20,0"
+                            materialDesign:HintAssist.FloatingOffset="0, -18"
+                            materialDesign:HintAssist.FloatingScale="0.7"
+                            materialDesign:HintAssist.Hint="Xuất xứ"
+                            IsEditable="True"
+                            Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                            <ComboBoxItem Content="Việt Nam" />
+                            <ComboBoxItem Content="Nhật Bản" />
+                            <ComboBoxItem Content="Mỹ" />
+                            <ComboBoxItem Content="Trung Quốc" />
+                            <ComboBoxItem Content="Hàn Quốc" />
+                        </ComboBox>
+                        <DatePicker
+                            x:Name="dtpNgayMua"
+                            Margin="20,10,20,0"
+                            materialDesign:DatePickerAssist.OutlinedBorderInactiveThickness="1"
+                            materialDesign:HintAssist.FloatingOffset="0,-22"
+                            materialDesign:HintAssist.Hint="Ngày mua"
+                            materialDesign:TextFieldAssist.HasClearButton="True"
+                            Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+
+                        <Grid Margin="20,10,20,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <TextBlock FontSize="13" Text="{Binding ElementName=progressSlidere_PhanTramMoi, Path=Value, StringFormat=Phần trăm mới: {0}%}" />
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <Slider
+                                    x:Name="progressSlidere_PhanTramMoi"
+                                    Margin="12,5,12,0"
+                                    IsSnapToTickEnabled="True"
+                                    Maximum="100"
+                                    Minimum="0"
+                                    TickFrequency="1" />
+                            </Grid>
+                        </Grid>
+                        <TextBox
+                            x:Name="txtbMoTaChung"
+                            Height="120"
+                            Margin="13,10,13,0"
+                            materialDesign:HintAssist.Hint="Mô tả"
+                            materialDesign:TextFieldAssist.HasClearButton="False"
+                            AcceptsReturn="True"
+                            Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                            TextWrapping="Wrap"
+                            VerticalScrollBarVisibility="Auto" />
+
+                    </StackPanel>
+                    <Grid Grid.Row="1" Width="124">
+                        <Button
+                            x:Name="btnSua"
+                            Margin="2,0"
+                            materialDesign:ButtonProgressAssist.IsIndeterminate="True"
+                            materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+                            materialDesign:ButtonProgressAssist.Value="-1"
+                            Click="btnSua_Click"
+                            Content="Sửa"
+                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                            Style="{StaticResource MaterialDesignRaisedButton}" />
+                    </Grid>
+                </Grid>
+            </materialDesign:Card>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="90" />
+                </Grid.RowDefinitions>
+                <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
+
+                    <WrapPanel
+                        x:Name="wpnlChuaAnh"
+                        Grid.Row="0"
+                        Orientation="Vertical">
+                        <Grid Margin="5">
+
+                            <!--<local:ThemAnhKhiDangUC x:Name="ucAnhVaMoTa" />-->
+                        </Grid>
+                    </WrapPanel>
+
+                </ScrollViewer>
+
+                <Button
+                    x:Name="btnThemAnh"
+                    Grid.Row="1"
+                    Height="60"
+                    Margin="10,0,10,0"
+                    VerticalAlignment="Center"
+                    Background="WhiteSmoke"
+                    Click="btnThemAnh_Click">
+                    <Image
+                        Width="70"
+                        Height="70"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Center"
+                        Source="/HinhCuaToi/them.png" />
+
+                </Button>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

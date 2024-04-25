@@ -1,0 +1,84 @@
+﻿<UserControl
+    x:Class="TraoDoiDo.ThanhDieuKhienUC"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:TraoDoiDo"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="thanhDieuKhien"
+    HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch"
+    d:DesignWidth="400"
+    Background="Transparent"
+    FontFamily="{DynamicResource MaterialDesignFont}"
+    Tag="Title"
+    TextElement.FontSize="13"
+    TextElement.FontWeight="Regular"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    TextOptions.TextFormattingMode="Ideal"
+    TextOptions.TextRenderingMode="Auto"
+    mc:Ignorable="d">
+    <Grid>
+        <materialDesign:ColorZone
+            x:Name="backGroum"
+            Margin="0,2,0,0"
+            Padding="2"
+            Background="White">
+            <Grid MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="110" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Column="0"
+                    Margin="10,0,0,0"
+                    VerticalAlignment="Center"
+                    FontSize="16"
+                    Text="{Binding Tag, ElementName=thanhDieuKhien}" />
+
+                <StackPanel
+                    Grid.Column="1"
+                    Width="auto"
+                    HorizontalAlignment="Right"
+                    Background="Transparent"
+                    Orientation="Horizontal">
+
+                    <Button
+                        Width="20"
+                        Height="20"
+                        Margin="7,0,7,0"
+                        Background="#FF2BD655"
+                        Click="btn_minimize_Click"
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                        Style="{StaticResource MaterialDesignFloatingActionButton}"
+                        ToolTip="Minimize" />
+
+                    <Button
+                        x:Name="btn_maximize"
+                        Width="20"
+                        Height="20"
+                        Margin="7,0,7,0"
+                        Background="#FFFFCA32"
+                        Click="btn_maximize_Click"
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                        Style="{StaticResource MaterialDesignFloatingActionButton}"
+                        ToolTip="Maximize" />
+
+                    <Button
+                        Width="20"
+                        Height="20"
+                        Margin="7,0,7,0"
+                        Background="#FFE17365"
+                        Click="btn_close_Click"
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                        Style="{StaticResource MaterialDesignFloatingActionButton}"
+                        ToolTip="Close" />
+
+                </StackPanel>
+            </Grid>
+        </materialDesign:ColorZone>
+    </Grid>
+</UserControl>

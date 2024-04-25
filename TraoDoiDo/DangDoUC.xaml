@@ -1,0 +1,1199 @@
+﻿<UserControl
+    x:Class="TraoDoiDo.DangDoUC"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:TraoDoiDo"
+    xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    x:Name="dangDoUC"
+    HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch"
+    d:DesignHeight="736"
+    d:DesignWidth="1195"
+    Background="{DynamicResource MaterialDesignPaper}"
+    FontFamily="{DynamicResource MaterialDesignFont}"
+    TextElement.FontSize="13"
+    TextElement.FontWeight="Regular"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    TextOptions.TextFormattingMode="Ideal"
+    TextOptions.TextRenderingMode="Auto"
+    mc:Ignorable="d">
+    <Grid>
+        <TabControl
+            Width="Auto"
+            materialDesign:ColorZoneAssist.Foreground="DeepSkyBlue"
+            materialDesign:ColorZoneAssist.Mode="Custom">
+            <TabItem x:Name="tabItemQuanLySanPham" Header="Quản lý sản phẩm" Loaded="tabItemQuanLySanPham_Loaded">
+                <Grid>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="60" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Button
+                                x:Name="btnThemSanPhamMoi"
+                                Grid.Column="0"
+                                Width="Auto"
+                                Height="37"
+                                Margin="20,12,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                materialDesign:ButtonAssist.CornerRadius="7"
+                                materialDesign:ButtonProgressAssist.IsIndeterminate="True"
+                                materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+                                materialDesign:ButtonProgressAssist.Value="-1"
+                                Click="btnThemSanPhamMoi_Click"
+                                Style="{StaticResource MaterialDesignRaisedButton}">
+
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Margin="5,0,10,0" Kind="PlusThick" />
+                                    <TextBlock Text="Thêm sản phẩm mới " />
+                                </StackPanel>
+
+                            </Button>
+                            <StackPanel
+                                Grid.Column="1"
+                                HorizontalAlignment="Right"
+                                Orientation="Horizontal">
+                                <ComboBox
+                                    x:Name="cbLocLoai"
+                                    Width="120"
+                                    Margin="0,0,15,0"
+                                    materialDesign:HintAssist.Hint="Loại"
+                                    SelectionChanged="cbLocLoai_SelectionChanged"
+                                    Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                                    <ComboBoxItem Content="Quần áo" />
+                                    <ComboBoxItem Content="Đồ điện tử" />
+                                    <ComboBoxItem Content="Đồ chơi" />
+                                    <ComboBoxItem Content="Đồ gia dụng" />
+                                    <ComboBoxItem Content="Đồ nội thất" />
+                                    <ComboBoxItem Content="Sách" />
+                                    <ComboBoxItem Content="Đồ dùng văn phòng phẩm" />
+                                    <ComboBoxItem Content="Tất cả" />
+
+                                </ComboBox>
+
+
+
+                            </StackPanel>
+                            <TextBox
+                                x:Name="txbTimKiem"
+                                Grid.Column="2"
+                                Width="230"
+                                Height="48"
+                                Margin="0,0,20,0"
+                                HorizontalAlignment="Right"
+                                materialDesign:HintAssist.Hint="Tìm kiếm"
+                                materialDesign:TextFieldAssist.PrefixText="Tên: "
+                                AcceptsReturn="True"
+                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                TextChanged="txbTiemKiem_TextChanged"
+                                TextWrapping="Wrap" />
+                        </Grid>
+                        <Grid
+                            Grid.Row="1"
+                            Width="Auto"
+                            Margin="0,10,0,0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Top"
+                            Background="#F2F1F1">
+
+                            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                                <ListView x:Name="lsvQuanLySanPham">
+                                    <ListView.Resources>
+                                        <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">10</sys:Double>
+                                    </ListView.Resources>
+
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="VerticalContentAlignment" Value="Center" />
+                                            <Setter Property="Background" Value="#ffffff" />
+                                            <!--  Border color  -->
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridView.ColumnHeaderContainerStyle>
+                                                <Style TargetType="{x:Type GridViewColumnHeader}">
+                                                    <Setter Property="Background" Value="LightBlue" />
+                                                    <Setter Property="Foreground" Value="Black" />
+                                                    <Setter Property="FontWeight" Value="Bold" />
+                                                </Style>
+                                            </GridView.ColumnHeaderContainerStyle>
+                                            <GridViewColumn
+                                                Width="45"
+                                                DisplayMemberBinding="{Binding Id}"
+                                                Header="Id đồ" />
+
+                                            <GridViewColumn Width="200" Header="Tên đồ">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding Ten}" TextWrapping="Wrap" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+
+                                            <!--  Ảnh  -->
+                                            <GridViewColumn Width="120" Header="Ảnh">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Image Source="{Binding LinkAnh}" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn
+                                                Width="120"
+                                                DisplayMemberBinding="{Binding Loai}"
+                                                Header="Loại" />
+                                            <GridViewColumn
+                                                Width="80"
+                                                DisplayMemberBinding="{Binding SoLuong}"
+                                                Header="Số lượng" />
+                                            <GridViewColumn
+                                                Width="85"
+                                                DisplayMemberBinding="{Binding SoLuongDaBan}"
+                                                Header="Đã bán" />
+                                            <GridViewColumn
+                                                Width="90"
+                                                DisplayMemberBinding="{Binding GiaGoc}"
+                                                Header="Giá gốc" />
+                                            <GridViewColumn
+                                                Width="90"
+                                                DisplayMemberBinding="{Binding GiaBan}"
+                                                Header="Giá bán" />
+                                            <GridViewColumn
+                                                Width="90"
+                                                DisplayMemberBinding="{Binding PhiShip}"
+                                                Header="Phí ship" />
+
+                                            <!--  Cột "Sửa"  -->
+                                            <GridViewColumn Width="120" Header="Operations">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <Button
+                                                                Width="45"
+                                                                Height="45"
+                                                                materialDesign:ButtonAssist.CornerRadius="10"
+                                                                BorderBrush="White"
+                                                                BorderThickness="1"
+                                                                Click="btnSuaDo_Click"
+                                                                ToolTip="Sửa">
+                                                                <materialDesign:PackIcon
+                                                                    Width="15"
+                                                                    Height="15"
+                                                                    Foreground="White"
+                                                                    Kind="PencilOutline" />
+                                                            </Button>
+                                                            <Button
+                                                                Width="45"
+                                                                Height="45"
+                                                                Margin="8,0,0,0"
+                                                                materialDesign:ButtonAssist.CornerRadius="10"
+                                                                Background="#dd4131"
+                                                                BorderBrush="White"
+                                                                BorderThickness="1"
+                                                                Click="btnXoa_Click"
+                                                                ToolTip="Xóa">
+                                                                <materialDesign:PackIcon
+                                                                    Width="15"
+                                                                    Height="15"
+                                                                    Foreground="White"
+                                                                    Kind="DeleteOutline" />
+                                                            </Button>
+
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+
+
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                            </ScrollViewer>
+                        </Grid>
+
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="tabItemQuanLyDonHang" Header="Quản lý đơn hàng" Loaded="tabItemQuanLyDonHang_Loaded_1">
+                <Grid>
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Expander
+                            Grid.Row="0"
+                            Margin="10,5,10,5"
+                            Background="#e3f2fd"
+                            ExpandDirection="Down"
+                            Foreground="#0d47a1">
+                            <Expander.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Margin="10,0"
+                                        VerticalAlignment="Center"
+                                        Foreground="#0d47a1"
+                                        Kind="ArchiveClockOutline" />
+                                    <!--  Badged tạo ra thông báo số lượng ở góc trên bên phải  -->
+                                    <materialDesign:Badged
+                                        Margin="10,0"
+                                        VerticalAlignment="Center"
+                                        Badge="{Binding ElementName=lsvChoDongGoi, Path=Items.Count, UpdateSourceTrigger=PropertyChanged}"
+                                        BadgeBackground="#42a5f5"
+                                        BadgeForeground="White">
+                                        <TextBlock
+                                            Margin="5"
+                                            FontSize="20"
+                                            FontWeight="Bold"
+                                            Text="Chờ đóng gói" />
+                                    </materialDesign:Badged>
+                                </StackPanel>
+                            </Expander.Header>
+                            <ScrollViewer
+                                HorizontalAlignment="Center"
+                                HorizontalScrollBarVisibility="Auto"
+                                VerticalScrollBarVisibility="Auto">
+
+                                <ListView x:Name="lsvChoDongGoi">
+                                    <ListView.Resources>
+                                        <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">10</sys:Double>
+                                    </ListView.Resources>
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="VerticalContentAlignment" Value="Center" /> 
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridView.ColumnHeaderContainerStyle>
+                                                <Style TargetType="{x:Type GridViewColumnHeader}">
+                                                    <Setter Property="Background" Value="LightBlue" />
+                                                    <Setter Property="Foreground" Value="Black" />
+                                                    <Setter Property="FontWeight" Value="Bold" />
+                                                </Style>
+                                            </GridView.ColumnHeaderContainerStyle>
+                                            <GridViewColumn
+                                                Width="45"
+                                                DisplayMemberBinding="{Binding IdSP}"
+                                                Header="Id đồ" />
+                                            <GridViewColumn
+                                                Width="0"
+                                                DisplayMemberBinding="{Binding IdNguoiMua}"
+                                                Header="Id người mua" />
+                                            <GridViewColumn
+                                                Width="130"
+                                                DisplayMemberBinding="{Binding TenSP}"
+                                                Header="Tên đồ" />
+                                            <!--  Ảnh  -->
+                                            <GridViewColumn Width="100" Header="Ảnh">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Image Source="{Binding LinkAnhBia}" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn
+                                                Width="100"
+                                                DisplayMemberBinding="{Binding SoLuongMua}"
+                                                Header="Số lượng" />
+                                            <GridViewColumn
+                                                Width="90"
+                                                DisplayMemberBinding="{Binding Gia}"
+                                                Header="Giá" />
+                                            <GridViewColumn
+                                                Width="90"
+                                                DisplayMemberBinding="{Binding PhiShip}"
+                                                Header="Phí ship" />
+                                            <GridViewColumn
+                                                Width="120"
+                                                DisplayMemberBinding="{Binding TongTien}"
+                                                Header="Tổng tiền" />
+                                            <!--  Cột "Thông tin khách hàng"  -->
+                                            <GridViewColumn Width="130" Header="Thông tin khách hàng">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Button
+                                                            x:Name="btnDiaChiGuiHang"
+                                                            BorderBrush="White"
+                                                            BorderThickness="1"
+                                                            Click="btnDiaChiGuiHang_Click"
+                                                            Content="Xem địa chỉ" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+
+                                            <GridViewColumn Width="125" Header="Gửi hàng">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Button
+                                                            BorderBrush="White"
+                                                            BorderThickness="1"
+                                                            Click="btnGuiHang_Click"
+                                                            Content="Gửi" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                            </ScrollViewer>
+
+                        </Expander>
+                        <Expander
+                            Grid.Row="1"
+                            Margin="10,5,10,5"
+                            Background="LightGreen"
+                            ExpandDirection="Down"
+                            Foreground="#0d47a1">
+                            <Expander.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Margin="10,0"
+                                        VerticalAlignment="Center"
+                                        Foreground="#0d47a1"
+                                        Kind="TruckCheckOutline" />
+                                    <!--  Badged tạo ra thông báo số lượng ở góc trên bên phải  -->
+                                    <materialDesign:Badged
+                                        Margin="10,0"
+                                        VerticalAlignment="Center"
+                                        Badge="{Binding ElementName=lsvDangGiao, Path=Items.Count, UpdateSourceTrigger=PropertyChanged}"
+                                        BadgeBackground="#FF209214"
+                                        BadgeForeground="White">
+                                        <TextBlock
+                                            Margin="5"
+                                            FontSize="20"
+                                            FontWeight="Bold"
+                                            Text="Đang giao" />
+                                    </materialDesign:Badged>
+                                </StackPanel>
+                            </Expander.Header>
+                            <ScrollViewer
+                                Grid.Row="1"
+                                HorizontalAlignment="Center"
+                                HorizontalScrollBarVisibility="Auto"
+                                VerticalScrollBarVisibility="Auto">
+
+                                <ListView x:Name="lsvDangGiao">
+                                    <ListView.Resources>
+                                        <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">10</sys:Double>
+                                    </ListView.Resources>
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="VerticalContentAlignment" Value="Center" />
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridView.ColumnHeaderContainerStyle>
+                                                <Style TargetType="{x:Type GridViewColumnHeader}">
+                                                    <Setter Property="Background" Value="LightBlue" />
+                                                    <Setter Property="Foreground" Value="Black" />
+                                                    <Setter Property="FontWeight" Value="Bold" />
+                                                </Style>
+                                            </GridView.ColumnHeaderContainerStyle>
+                                            <GridViewColumn
+                                                Width="45"
+                                                DisplayMemberBinding="{Binding IdSP}"
+                                                Header="Id đồ" />
+                                            <GridViewColumn
+                                                Width="0"
+                                                DisplayMemberBinding="{Binding IdNguoiMua}"
+                                                Header="Id người mua" />
+                                            <GridViewColumn
+                                                Width="130"
+                                                DisplayMemberBinding="{Binding TenSP}"
+                                                Header="Tên đồ" />
+                                            <!--  Ảnh  -->
+                                            <GridViewColumn Width="100" Header="Ảnh">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Image Source="{Binding LinkAnhBia}" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn
+                                                Width="100"
+                                                DisplayMemberBinding="{Binding SoLuongMua}"
+                                                Header="Số lượng" />
+                                            <GridViewColumn
+                                                Width="90"
+                                                DisplayMemberBinding="{Binding Gia}"
+                                                Header="Giá" />
+                                            <GridViewColumn
+                                                Width="90"
+                                                DisplayMemberBinding="{Binding PhiShip}"
+                                                Header="Phí ship" />
+                                            <GridViewColumn
+                                                Width="120"
+                                                DisplayMemberBinding="{Binding TongTien}"
+                                                Header="Tổng tiền" />
+                                            <!--  Cột "Thông tin khách hàng"  -->
+                                            <GridViewColumn Width="130" Header="Thông tin khách hàng">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Button
+                                                            x:Name="btnDiaChiGuiHang"
+                                                            Click="btnDiaChiGuiHang_Click"
+                                                            Content="Xem địa chỉ" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                            </ScrollViewer>
+                        </Expander>
+                        <Expander
+                            Grid.Row="2"
+                            Margin="10,5,10,5"
+                            Background="LightPink"
+                            ExpandDirection="Down"
+                            Foreground="#0d47a1">
+                            <Expander.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Margin="10,0"
+                                        VerticalAlignment="Center"
+                                        Foreground="#0d47a1"
+                                        Kind="ClipboardCheckOutline" />
+                                    <!--  Badged tạo ra thông báo số lượng ở góc trên bên phải  -->
+                                    <materialDesign:Badged
+                                        Margin="10,0"
+                                        VerticalAlignment="Center"
+                                        Badge="{Binding ElementName=lsvDaGiao, Path=Items.Count, UpdateSourceTrigger=PropertyChanged}"
+                                        BadgeBackground="#FFF542A6"
+                                        BadgeForeground="White">
+                                        <TextBlock
+                                            Margin="5"
+                                            FontSize="20"
+                                            FontWeight="Bold"
+                                            Text="Đã giao" />
+                                    </materialDesign:Badged>
+                                </StackPanel>
+                            </Expander.Header>
+                            <ScrollViewer
+                                Grid.Row="1"
+                                HorizontalAlignment="Center"
+                                HorizontalScrollBarVisibility="Auto"
+                                VerticalScrollBarVisibility="Auto">
+
+                                <ListView x:Name="lsvDaGiao">
+                                    <ListView.Resources>
+                                        <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">10</sys:Double>
+                                    </ListView.Resources>
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="VerticalContentAlignment" Value="Center" />
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridView.ColumnHeaderContainerStyle>
+                                                <Style TargetType="{x:Type GridViewColumnHeader}">
+                                                    <Setter Property="Background" Value="LightBlue" />
+                                                    <Setter Property="Foreground" Value="Black" />
+                                                    <Setter Property="FontWeight" Value="Bold" />
+                                                </Style>
+                                            </GridView.ColumnHeaderContainerStyle>
+                                            <GridViewColumn
+                                                Width="45"
+                                                DisplayMemberBinding="{Binding IdSP}"
+                                                Header="Id đồ" />
+                                            <GridViewColumn
+                                                Width="0"
+                                                DisplayMemberBinding="{Binding IdNguoiMua}"
+                                                Header="Id người mua" />
+                                            <GridViewColumn
+                                                Width="130"
+                                                DisplayMemberBinding="{Binding TenSP}"
+                                                Header="Tên đồ" />
+                                            <!--  Ảnh  -->
+                                            <GridViewColumn Width="100" Header="Ảnh">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Image Source="{Binding LinkAnhBia}" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn
+                                                Width="100"
+                                                DisplayMemberBinding="{Binding SoLuongMua}"
+                                                Header="Số lượng" />
+                                            <GridViewColumn
+                                                Width="90"
+                                                DisplayMemberBinding="{Binding Gia}"
+                                                Header="Giá" />
+                                            <GridViewColumn
+                                                Width="90"
+                                                DisplayMemberBinding="{Binding PhiShip}"
+                                                Header="Phí ship" />
+                                            <GridViewColumn
+                                                Width="120"
+                                                DisplayMemberBinding="{Binding TongTien}"
+                                                Header="Tổng tiền" />
+                                            <!--  Cột "Thông tin khách hàng"  -->
+                                            <GridViewColumn Width="130" Header="Thông tin khách hàng">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Button
+                                                            x:Name="btnDiaChiGuiHang"
+                                                            Click="btnDiaChiGuiHang_Click"
+                                                            Content="Xem địa chỉ" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                            </ScrollViewer>
+                        </Expander>
+                        <Expander
+                            Grid.Row="3"
+                            Margin="10,5,10,5"
+                            Background="#FFFFD060"
+                            ExpandDirection="Down"
+                            Foreground="#0d47a1">
+                            <Expander.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Margin="10,0"
+                                        VerticalAlignment="Center"
+                                        Foreground="#0d47a1"
+                                        Kind="ClipboardCheckOutline" />
+                                    <!--  Badged tạo ra thông báo số lượng ở góc trên bên phải  -->
+                                    <materialDesign:Badged
+                                        Margin="10,0"
+                                        VerticalAlignment="Center"
+                                        Badge="{Binding ElementName=lsvDonHangBiHoanTra, Path=Items.Count, UpdateSourceTrigger=PropertyChanged}"
+                                        BadgeBackground="#FFC6950B"
+                                        BadgeForeground="White">
+                                        <TextBlock
+                                            Margin="5"
+                                            FontSize="20"
+                                            FontWeight="Bold"
+                                            Text="Đơn hàng bị hoàn trả" />
+                                    </materialDesign:Badged>
+                                </StackPanel>
+                            </Expander.Header>
+                            <ScrollViewer
+                                Grid.Row="1"
+                                HorizontalAlignment="Center"
+                                HorizontalScrollBarVisibility="Auto"
+                                VerticalScrollBarVisibility="Auto">
+
+                                <ListView x:Name="lsvDonHangBiHoanTra">
+                                    <ListView.Resources>
+                                        <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">10</sys:Double>
+                                    </ListView.Resources>
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="VerticalContentAlignment" Value="Center" />
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridView.ColumnHeaderContainerStyle>
+                                                <Style TargetType="{x:Type GridViewColumnHeader}">
+                                                    <Setter Property="Background" Value="LightBlue" />
+                                                    <Setter Property="Foreground" Value="Black" />
+                                                    <Setter Property="FontWeight" Value="Bold" />
+                                                </Style>
+                                            </GridView.ColumnHeaderContainerStyle>
+                                            <GridViewColumn
+                                                Width="45"
+                                                DisplayMemberBinding="{Binding IdSP}"
+                                                Header="Id đồ" />
+                                            <GridViewColumn
+                                                Width="0"
+                                                DisplayMemberBinding="{Binding IdNguoiMua}"
+                                                Header="Id người mua" />
+                                            <GridViewColumn
+                                                Width="130"
+                                                DisplayMemberBinding="{Binding TenSP}"
+                                                Header="Tên đồ" />
+                                            <!--  Ảnh  -->
+                                            <GridViewColumn Width="100" Header="Ảnh">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Image Source="{Binding LinkAnhBia}" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn
+                                                Width="100"
+                                                DisplayMemberBinding="{Binding SoLuongMua}"
+                                                Header="Số lượng" />
+                                            <GridViewColumn
+                                                Width="90"
+                                                DisplayMemberBinding="{Binding Gia}"
+                                                Header="Giá" />
+                                            <GridViewColumn
+                                                Width="90"
+                                                DisplayMemberBinding="{Binding PhiShip}"
+                                                Header="Phí ship" />
+                                            <GridViewColumn
+                                                Width="120"
+                                                DisplayMemberBinding="{Binding TongTien}"
+                                                Header="Tổng tiền" />
+                                            <!--  Cột "Thông tin khách hàng"  -->
+                                            <GridViewColumn Width="130" Header="Thông tin khách hàng">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Button
+                                                            x:Name="btnDiaChiGuiHang"
+                                                            Click="btnDiaChiGuiHang_Click"
+                                                            Content="Xem địa chỉ" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn
+                                                Width="125"
+                                                DisplayMemberBinding="{Binding LyDoTraHang}"
+                                                Header="Lý do trả hàng" />
+
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                            </ScrollViewer>
+                        </Expander>
+                    </Grid>
+
+                </Grid>
+
+
+
+
+
+
+            </TabItem>
+            <TabItem x:Name="tabItemThongKe" Header="Thống kê" Loaded="tabItemThongKe_Loaded_1">
+                <Grid>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid
+                                    Grid.Column="0"
+                                    Width="377"
+                                    Height="200"
+                                    Margin="10,10,0,10">
+                                    <Border
+                                        BorderBrush="Gray"
+                                        BorderThickness="1"
+                                        CornerRadius="5">
+                                        <Border.Effect>
+                                            <DropShadowEffect
+                                                Direction="270"
+                                                Opacity="0.5"
+                                                ShadowDepth="2" />
+                                        </Border.Effect>
+                                        <Grid Background="#FF9D59FC">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <materialDesign:PackIcon
+                                                Grid.Column="0"
+                                                Width="90"
+                                                Height="90"
+                                                VerticalAlignment="Center"
+                                                Foreground="White"
+                                                Kind="Finance" />
+                                            <Grid Grid.Column="1">
+                                                <Grid VerticalAlignment="Center">
+
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                    </Grid.RowDefinitions>
+                                                    <TextBlock
+                                                        Grid.Row="0"
+                                                        Margin="15,15,15,0"
+                                                        VerticalAlignment="Center"
+                                                        FontSize="35"
+                                                        Foreground="White"
+                                                        Text="Tổng doanh thu" />
+                                                    <StackPanel
+                                                        Grid.Row="1"
+                                                        Margin="15,0,15,15"
+                                                        Orientation="Horizontal">
+                                                        <TextBlock
+                                                            x:Name="txtbTongDoanhThu"
+                                                            VerticalAlignment="Center"
+                                                            FontSize="35"
+                                                            Foreground="White"
+                                                            Text="2.300.000" />
+                                                        <TextBlock
+                                                            VerticalAlignment="Center"
+                                                            FontSize="35"
+                                                            Foreground="White"
+                                                            Text=" VNĐ" />
+                                                    </StackPanel>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+
+
+
+
+
+                                <Grid
+                                    Grid.Column="2"
+                                    Width="377"
+                                    Height="200"
+                                    Margin="10,10,0,10">
+                                    <Border
+                                        BorderBrush="Gray"
+                                        BorderThickness="1"
+                                        CornerRadius="5">
+                                        <Border.Effect>
+                                            <DropShadowEffect
+                                                Direction="270"
+                                                Opacity="0.5"
+                                                ShadowDepth="2" />
+                                        </Border.Effect>
+                                        <Grid Background="#FF41AA6F">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <materialDesign:PackIcon
+                                                Grid.Column="0"
+                                                Width="90"
+                                                Height="90"
+                                                VerticalAlignment="Center"
+                                                Foreground="White"
+                                                Kind="AccountBoxOutline" />
+                                            <Grid Grid.Column="1">
+                                                <Grid VerticalAlignment="Center">
+
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                    </Grid.RowDefinitions>
+                                                    <TextBlock
+                                                        Grid.Row="0"
+                                                        Margin="15,15,15,0"
+                                                        VerticalAlignment="Center"
+                                                        FontSize="34"
+                                                        Foreground="White"
+                                                        Text="Tổng khách hàng" />
+                                                    <StackPanel
+                                                        Grid.Row="1"
+                                                        Margin="15,0,15,15"
+                                                        Orientation="Horizontal">
+
+                                                        <TextBlock
+                                                            x:Name="txtbTongSoLuongKhachHang"
+                                                            VerticalAlignment="Center"
+                                                            FontSize="35"
+                                                            Foreground="White"
+                                                            Text="127" />
+                                                        <TextBlock
+                                                            VerticalAlignment="Center"
+                                                            FontSize="35"
+                                                            Foreground="White"
+                                                            Text=" Người" />
+                                                    </StackPanel>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                                <Grid
+                                    Grid.Column="1"
+                                    Width="377"
+                                    Height="200"
+                                    Margin="10,10,0,10">
+                                    <Border
+                                        BorderBrush="Gray"
+                                        BorderThickness="1"
+                                        CornerRadius="5">
+                                        <Border.Effect>
+                                            <DropShadowEffect
+                                                Direction="270"
+                                                Opacity="0.5"
+                                                ShadowDepth="2" />
+                                        </Border.Effect>
+                                        <Grid Background="#FF5D90EF">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <materialDesign:PackIcon
+                                                Grid.Column="0"
+                                                Width="90"
+                                                Height="90"
+                                                VerticalAlignment="Center"
+                                                Foreground="White"
+                                                Kind="PackageVariant" />
+                                            <Grid Grid.Column="1">
+                                                <Grid VerticalAlignment="Center">
+
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                    </Grid.RowDefinitions>
+                                                    <TextBlock
+                                                        Grid.Row="0"
+                                                        Margin="15,15,15,0"
+                                                        VerticalAlignment="Center"
+                                                        FontSize="35"
+                                                        Foreground="White"
+                                                        Text="Đã bán được" />
+                                                    <StackPanel
+                                                        Grid.Row="1"
+                                                        Margin="15,0,15,15"
+                                                        Orientation="Horizontal">
+
+                                                        <TextBlock
+                                                            x:Name="txtbTongSoLuongSanPhamDaBan"
+                                                            VerticalAlignment="Center"
+                                                            FontSize="35"
+                                                            Foreground="White"
+                                                            Text="168" />
+                                                        <TextBlock
+                                                            VerticalAlignment="Center"
+                                                            FontSize="35"
+                                                            Foreground="White"
+                                                            Text=" Sản phẩm" />
+                                                    </StackPanel>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+
+                            </Grid>
+                            <Grid Grid.Row="1" HorizontalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="770" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0" Margin="10,20,10,20">
+                                    <materialDesign:Card UniformCornerRadius="20">
+                                        <StackPanel>
+                                            <Grid>
+                                                <TextBlock
+                                                    Margin="20"
+                                                    HorizontalAlignment="Left"
+                                                    FontSize="18"
+                                                    FontWeight="SemiBold"
+                                                    Text="Tổng doanh thu theo sản phẩm" />
+                                            </Grid>
+                                            <lvc:CartesianChart
+                                                x:Name="chart_TongDoanhThuTheoSanPham"
+                                                Height="300"
+                                                Margin="10,0"
+                                                Foreground="Black"
+                                                LegendLocation="None"
+                                                Series="{Binding DoanhThuTheoSanPham_SC}" />
+                                        </StackPanel>
+                                    </materialDesign:Card>
+                                </Grid>
+
+                                <Grid Grid.Column="1" Margin="10,20,5,20">
+                                    <materialDesign:Card
+                                        Width="370"
+                                        HorizontalAlignment="Right"
+                                        UniformCornerRadius="20">
+                                        <StackPanel>
+                                            <Grid>
+                                                <TextBlock
+                                                    Margin="20"
+                                                    HorizontalAlignment="Left"
+                                                    FontSize="18"
+                                                    FontWeight="SemiBold"
+                                                    Text="Tỷ lệ % doanh số theo sản phẩm" />
+
+                                            </Grid>
+                                            <lvc:PieChart
+                                                x:Name="chart_TiLePhanTramDoanhThuTheoSanPham"
+                                                Width="300"
+                                                Height="300"
+                                                LegendLocation="None" />
+                                        </StackPanel>
+                                    </materialDesign:Card>
+                                </Grid>
+                            </Grid>
+
+                            <Grid Grid.Row="2" HorizontalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="780" />
+                                    <ColumnDefinition Width="382" />
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0" Margin="10,10,10,0">
+                                    <materialDesign:Card Margin="10,10,10,20" UniformCornerRadius="20">
+                                        <StackPanel>
+                                            <Grid>
+                                                <TextBlock
+                                                    Margin="20"
+                                                    HorizontalAlignment="Left"
+                                                    FontSize="18"
+                                                    FontWeight="SemiBold"
+                                                    Text="Số lượng sản phẩm đã bán" />
+                                            </Grid>
+                                            <lvc:CartesianChart
+                                                x:Name="chart_SoLuongSanPhamDaBan"
+                                                Height="280"
+                                                Margin="10,0"
+                                                Foreground="Black"
+                                                LegendLocation="Bottom"
+                                                Series="{Binding abcxyz}" />
+                                        </StackPanel>
+                                    </materialDesign:Card>
+
+                                </Grid>
+
+                                <Grid Grid.Column="1">
+                                    <materialDesign:Card
+                                        Height="335"
+                                        Padding="10"
+                                        UniformCornerRadius="20">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition />
+                                            </Grid.RowDefinitions>
+                                            <Grid Grid.Row="0">
+                                                <TextBlock
+                                                    HorizontalAlignment="Left"
+                                                    FontSize="18"
+                                                    FontWeight="SemiBold"
+                                                    Text="Đánh giá của người mua" />
+                                            </Grid>
+                                            <Grid
+                                                Grid.Row="1"
+                                                Height="150"
+                                                HorizontalAlignment="Center">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="175" />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid Grid.Column="0">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition />
+                                                        <RowDefinition />
+                                                        <RowDefinition />
+                                                        <RowDefinition />
+                                                        <RowDefinition />
+                                                    </Grid.RowDefinitions>
+                                                    <StackPanel
+                                                        Grid.Row="0"
+                                                        HorizontalAlignment="Left"
+                                                        VerticalAlignment="Center"
+                                                        Orientation="Horizontal">
+                                                        <TextBlock
+                                                            Margin="5,0"
+                                                            FontWeight="SemiBold"
+                                                            Text="5 Sao" />
+                                                        <ProgressBar
+                                                            x:Name="progressBar5Sao"
+                                                            Width="100"
+                                                            Height="8"
+                                                            Margin="5,0"
+                                                            Background="#FFE8E8E8"
+                                                            BorderBrush="SeaGreen"
+                                                            Foreground="SeaGreen"
+                                                            Value="80" />
+                                                        <TextBlock
+                                                            x:Name="txtbSoLuong5Sao"
+                                                            FontWeight="SemiBold"
+                                                            Text="32" />
+                                                    </StackPanel>
+                                                    <StackPanel
+                                                        Grid.Row="1"
+                                                        HorizontalAlignment="Left"
+                                                        VerticalAlignment="Center"
+                                                        Orientation="Horizontal">
+                                                        <TextBlock
+                                                            Margin="5,0"
+                                                            FontWeight="SemiBold"
+                                                            Text="4 Sao" />
+                                                        <ProgressBar
+                                                            x:Name="progressBar4Sao"
+                                                            Width="100"
+                                                            Height="8"
+                                                            Margin="5,0"
+                                                            Background="#FFE8E8E8"
+                                                            BorderBrush="SeaGreen"
+                                                            Foreground="SeaGreen"
+                                                            Value="64" />
+                                                        <TextBlock
+                                                            x:Name="txtbSoLuong4Sao"
+                                                            FontWeight="SemiBold"
+                                                            Text="12" />
+                                                    </StackPanel>
+                                                    <StackPanel
+                                                        Grid.Row="2"
+                                                        HorizontalAlignment="Left"
+                                                        VerticalAlignment="Center"
+                                                        Orientation="Horizontal">
+                                                        <TextBlock
+                                                            Margin="5,0"
+                                                            FontWeight="SemiBold"
+                                                            Text="3 Sao" />
+                                                        <ProgressBar
+                                                            x:Name="progressBar3Sao"
+                                                            Width="100"
+                                                            Height="8"
+                                                            Margin="5,0"
+                                                            Background="#FFE8E8E8"
+                                                            BorderBrush="SeaGreen"
+                                                            Foreground="SeaGreen"
+                                                            Value="60" />
+                                                        <TextBlock
+                                                            x:Name="txtbSoLuong3Sao"
+                                                            FontWeight="SemiBold"
+                                                            Text="14" />
+                                                    </StackPanel>
+                                                    <StackPanel
+                                                        Grid.Row="3"
+                                                        HorizontalAlignment="Left"
+                                                        VerticalAlignment="Center"
+                                                        Orientation="Horizontal">
+                                                        <TextBlock
+                                                            Margin="5,0"
+                                                            FontWeight="SemiBold"
+                                                            Text="2 Sao" />
+                                                        <ProgressBar
+                                                            x:Name="progressBar2Sao"
+                                                            Width="100"
+                                                            Height="8"
+                                                            Margin="5,0"
+                                                            Background="#FFE8E8E8"
+                                                            BorderBrush="SeaGreen"
+                                                            Foreground="SeaGreen"
+                                                            Value="27" />
+                                                        <TextBlock
+                                                            x:Name="txtbSoLuong2Sao"
+                                                            FontWeight="SemiBold"
+                                                            Text="3" />
+                                                    </StackPanel>
+                                                    <StackPanel
+                                                        Grid.Row="4"
+                                                        HorizontalAlignment="Left"
+                                                        VerticalAlignment="Center"
+                                                        Orientation="Horizontal">
+                                                        <TextBlock
+                                                            Margin="5,0"
+                                                            FontWeight="SemiBold"
+                                                            Text="1 Sao" />
+                                                        <ProgressBar
+                                                            x:Name="progressBar1Sao"
+                                                            Width="100"
+                                                            Height="8"
+                                                            Margin="5,0"
+                                                            Background="#FFE8E8E8"
+                                                            BorderBrush="SeaGreen"
+                                                            Foreground="SeaGreen"
+                                                            Value="10" />
+                                                        <TextBlock
+                                                            x:Name="txtbSoLuong1Sao"
+                                                            FontWeight="SemiBold"
+                                                            Text="0" />
+                                                    </StackPanel>
+
+                                                </Grid>
+                                                <Grid
+                                                    Grid.Column="1"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                    </Grid.RowDefinitions>
+                                                    <TextBlock
+                                                        x:Name="txtbSoSaoTrungBinh"
+                                                        Grid.Row="0"
+                                                        HorizontalAlignment="Center"
+                                                        FontSize="35"
+                                                        FontWeight="SemiBold"
+                                                        Text="4.8" />
+                                                    <materialDesign:RatingBar
+                                                        x:Name="ratingBar_SoSao"
+                                                        Grid.Row="1"
+                                                        HorizontalAlignment="Center"
+                                                        IsReadOnly="True"
+                                                        Value="4" />
+                                                    <Grid Grid.Row="2" HorizontalAlignment="Center">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto" />
+                                                            <ColumnDefinition Width="Auto" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBlock
+                                                            x:Name="txtbSoLuotDanhGia"
+                                                            Grid.Column="0"
+                                                            HorizontalAlignment="Center"
+                                                            FontWeight="SemiBold"
+                                                            Text="15" />
+                                                        <TextBlock
+                                                            Grid.Column="1"
+                                                            HorizontalAlignment="Center"
+                                                            FontWeight="SemiBold"
+                                                            Text=" lượt đánh giá" />
+                                                    </Grid>
+                                                    <Button
+                                                        x:Name="btnThongTinChiTietDanhGia"
+                                                        Grid.Row="3"
+                                                        Width="85"
+                                                        Height="30"
+                                                        Click="btnThongTinChiTietDanhGia_Click"
+                                                        Content="Chi tiết" />
+
+                                                </Grid>
+
+                                            </Grid>
+                                        </Grid>
+                                    </materialDesign:Card>
+                                </Grid>
+
+
+                            </Grid>
+
+
+
+
+
+                        </Grid>
+                    </ScrollViewer>
+
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</UserControl>

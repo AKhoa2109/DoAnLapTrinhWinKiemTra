@@ -1,0 +1,783 @@
+﻿<UserControl
+    x:Class="TraoDoiDo.MuaDoUC"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:TraoDoiDo"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch"
+    d:DesignHeight="736"
+    d:DesignWidth="1200"
+    Background="{DynamicResource MaterialDesignPaper}"
+    FontFamily="{DynamicResource MaterialDesignFont}"
+    TextElement.FontSize="13"
+    TextElement.FontWeight="Regular"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    TextOptions.TextFormattingMode="Ideal"
+    TextOptions.TextRenderingMode="Auto"
+    mc:Ignorable="d">
+
+    <Grid>
+        <TabControl
+            Width="Auto"
+            materialDesign:ColorZoneAssist.Foreground="DeepSkyBlue"
+            materialDesign:ColorZoneAssist.Mode="Custom">
+            <TabItem
+                x:Name="tabItemMuaSam"
+                Header="Mua sắm"
+                Loaded="tabItemMuaSam_Loaded">
+                <Grid>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="55" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel
+                                Grid.Column="0"
+                                HorizontalAlignment="Right"
+                                Orientation="Horizontal">
+                                <ComboBox
+                                    x:Name="cboSapXepTheoLoai"
+                                    Width="120"
+                                    Margin="0,0,15,0"
+                                    materialDesign:HintAssist.FloatingOffset="0, -18"
+                                    materialDesign:HintAssist.FloatingScale="0.7"
+                                    materialDesign:HintAssist.Hint="Loại"
+                                    IsEditable="False"
+                                    SelectionChanged="cboSapXepTheoLoai_SelectionChanged"
+                                    Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                                    <ComboBoxItem Content="Quần áo" />
+                                    <ComboBoxItem Content="Đồ điện tử" />
+                                    <ComboBoxItem Content="Đồ chơi" />
+                                    <ComboBoxItem Content="Đồ gia dụng" />
+                                    <ComboBoxItem Content="Đồ nội thất" />
+                                    <ComboBoxItem Content="Sách" />
+                                    <ComboBoxItem Content="Đồ dùng văn phòng phẩm" />
+                                    <ComboBoxItem Content="Tất cả" />
+                                </ComboBox>
+
+                                <ComboBox
+                                    x:Name="cboSapXepTheoYeuThich"
+                                    Width="120"
+                                    Margin="0,0,15,0"
+                                    materialDesign:HintAssist.FloatingOffset="0, -18"
+                                    materialDesign:HintAssist.FloatingScale="0.7"
+                                    materialDesign:HintAssist.Hint="Sắp xếp"
+                                    IsEditable="False"
+                                    SelectionChanged="cboSapXepTheoYeuThich_SelectionChanged"
+                                    Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                                    <ComboBoxItem Content="Yêu thích" />
+                                    <ComboBoxItem Content="Tất cả" />
+                                </ComboBox>
+
+
+                            </StackPanel>
+                            <TextBox
+                                x:Name="txbTimKiem"
+                                Grid.Column="1"
+                                Width="230"
+                                Height="48"
+                                Margin="0,0,15,0"
+                                HorizontalAlignment="Right"
+                                materialDesign:HintAssist.Hint="Tìm kiếm"
+                                materialDesign:TextFieldAssist.PrefixText="Tên: "
+                                AcceptsReturn="True"
+                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                TextChanged="txbTimKiem_TextChanged"
+                                TextWrapping="Wrap" />
+
+                        </Grid>
+
+                        <ScrollViewer
+                            Grid.Row="1"
+                            Grid.ColumnSpan="2"
+                            Margin="6,16,16,16"
+                            HorizontalScrollBarVisibility="Disabled"
+                            VerticalScrollBarVisibility="Auto">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <StackPanel Grid.Row="0">
+                                    <TextBlock
+                                        Margin="5"
+                                        FontWeight="Bold"
+                                        FontSize="30"
+                                        Text="Tất cả sản phẩm" />
+                                    <WrapPanel
+                                        x:Name="wpnlHienThi"
+                                        Grid.Row="0"
+                                        Width="Auto"
+                                        Height="Auto">
+                                        <!--  Các phần tử bên trong WrapPanel  -->
+                                    </WrapPanel>
+                                </StackPanel>
+
+                                <StackPanel Grid.Row="1">
+                                    <TextBlock
+                                        Margin="5"
+                                        FontWeight="Bold"
+                                        FontSize="30"
+                                        Text="Sản phẩm ưu chuộng" />
+                                    <WrapPanel
+                                        x:Name="wpnlHienThuUaChuong"
+                                        
+                                        Width="Auto"
+                                        Height="Auto">
+                                        <!--  Các phần tử bên trong WrapPanel  -->
+                                    </WrapPanel>
+                                </StackPanel>
+                            </Grid>
+
+
+                        </ScrollViewer>
+
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem
+                x:Name="tabItemGioHang"
+                Header="Giỏ hàng"
+                Loaded="tabItemGioHang_Loaded"
+                MouseLeftButtonDown="LsvGioHang_Load">
+
+                <Grid Margin="16">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="832" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <Border
+                        Margin="10,0,10,10"
+                        BorderBrush="{DynamicResource MaterialDesignDivider}"
+                        BorderThickness="2">
+                        <ScrollViewer
+                            Grid.Column="0"
+                            HorizontalScrollBarVisibility="Auto"
+                            VerticalScrollBarVisibility="Auto">
+
+                            <ListView x:Name="lsvGioHang" SelectionMode="Multiple">
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <Setter Property="VerticalContentAlignment" Value="Center" />
+                                        <Setter Property="Background" Value="#ffffff" />
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+                                <ListView.View>
+                                    <GridView>
+                                        <GridView.ColumnHeaderContainerStyle>
+                                            <Style TargetType="{x:Type GridViewColumnHeader}">
+                                                <Setter Property="Background" Value="LightBlue" />
+                                                <Setter Property="Foreground" Value="Black" />
+                                                <Setter Property="FontWeight" Value="Bold" />
+                                            </Style>
+                                        </GridView.ColumnHeaderContainerStyle>
+                                        <!--  Cột checkbox để chọn tất cả  -->
+                                        <GridViewColumn Width="40" Header="">
+                                            <GridViewColumn.HeaderTemplate>
+                                                <DataTemplate>
+                                                    <CheckBox x:Name="checkBoxTong" Checked="ChonTatCaCacDong_Click" />
+                                                </DataTemplate>
+                                            </GridViewColumn.HeaderTemplate>
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <CheckBox
+                                                        Checked="TinhTienCuaNhungDongDuocChon"
+                                                        IsChecked="{Binding IsSelected, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=ListViewItem}}"
+                                                        Unchecked="TinhTienCuaNhungDongDuocChon" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+
+                                        <GridViewColumn
+                                            Width="50"
+                                            DisplayMemberBinding="{Binding IdSP}"
+                                            Header="Id đồ" />
+                                        <GridViewColumn
+                                            Width="130"
+                                            DisplayMemberBinding="{Binding TenSP}"
+                                            Header="Tên đồ" />
+                                        <!--  Cột "Ảnh"  -->
+                                        <GridViewColumn Width="100" Header="Ảnh">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Image Source="{Binding LinkAnhBia}" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn
+                                            Width="90"
+                                            DisplayMemberBinding="{Binding Gia}"
+                                            Header="Giá" />
+                                        <GridViewColumn
+                                            Width="100"
+                                            DisplayMemberBinding="{Binding PhiShip}"
+                                            Header="Phí Ship" />
+                                        <GridViewColumn
+                                            Width="90"
+                                            DisplayMemberBinding="{Binding SoLuongMua}"
+                                            Header="Số lượng mua" />
+                                        <GridViewColumn
+                                            Width="100"
+                                            DisplayMemberBinding="{Binding TrangThaiConHayHet}"
+                                            Header="Trạng thái" />
+
+                                        <!--  Cột "Xóa"  -->
+                                        <GridViewColumn Width="90" Header="Xóa">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Button
+                                                        Width="45"
+                                                        Height="45"
+                                                        Margin="8,0,0,0"
+                                                        materialDesign:ButtonAssist.CornerRadius="10"
+                                                        Background="#dd4131"
+                                                        BorderBrush="White"
+                                                        BorderThickness="1"
+                                                        Click="btnXoaKhoiGioHang_Click"
+                                                        ToolTip="Xóa">
+                                                        <materialDesign:PackIcon
+                                                            Width="15"
+                                                            Height="15"
+                                                            Foreground="White"
+                                                            Kind="DeleteOutline" />
+                                                    </Button>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </ScrollViewer>
+                    </Border>
+
+                    <Grid Grid.Column="1" HorizontalAlignment="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid
+                            Grid.Row="0"
+                            Width="350"
+                            Height="180"
+                            Background="#9359c5">
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock
+                                        Margin="18,16,-18,0"
+                                        VerticalAlignment="Top"
+                                        FontSize="17"
+                                        Foreground="White"
+                                        Text="Tổng tiền hàng: " />
+                                    <TextBlock
+                                        x:Name="txtbTongTienHang"
+                                        Margin="18,16,-18,0"
+                                        VerticalAlignment="Top"
+                                        FontSize="17"
+                                        Foreground="White"
+                                        Text="0" />
+
+                                    <TextBlock
+                                        Margin="18,16,-18,0"
+                                        VerticalAlignment="Top"
+                                        FontSize="17"
+                                        Foreground="White"
+                                        Text=" đ" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+
+                                    <TextBlock
+                                        Margin="18,3,-18,0"
+                                        VerticalAlignment="Top"
+                                        FontSize="17"
+                                        Foreground="White"
+                                        Text="Tổng tiền phí vận chuyển: " />
+                                    <TextBlock
+                                        x:Name="txtbTongTienShip"
+                                        Margin="18,3,-18,0"
+                                        VerticalAlignment="Top"
+                                        FontSize="17"
+                                        Foreground="White"
+                                        Text="0" />
+                                    <TextBlock
+                                        Margin="18,3,-18,0"
+                                        VerticalAlignment="Top"
+                                        FontSize="17"
+                                        Foreground="White"
+                                        Text=" đ" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+
+                                    <TextBlock
+                                        Margin="18,12,-18,0"
+                                        VerticalAlignment="Top"
+                                        FontSize="20"
+                                        FontWeight="Bold"
+                                        Foreground="White"
+                                        Text="Tổng thanh toán: " />
+                                    <TextBlock
+                                        x:Name="txtbTongThanhToan"
+                                        Margin="18,12,-18,0"
+                                        VerticalAlignment="Top"
+                                        FontSize="20"
+                                        FontWeight="Bold"
+                                        Foreground="White"
+                                        Text="0" />
+                                    <TextBlock
+                                        Margin="18,12,-18,0"
+                                        VerticalAlignment="Top"
+                                        FontSize="20"
+                                        FontWeight="Bold"
+                                        Foreground="White"
+                                        Text=" đ" />
+                                </StackPanel>
+                                <Button
+                                    x:Name="btnThanhToan"
+                                    Grid.Row="1"
+                                    Width="250"
+                                    Height="35"
+                                    Margin="0,20,0,0"
+                                    materialDesign:ButtonProgressAssist.IsIndeterminate="True"
+                                    materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+                                    materialDesign:ButtonProgressAssist.Value="-1"
+                                    Click="btnThanhToan_Click"
+                                    Content="Thanh Toán"
+                                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                    Style="{StaticResource MaterialDesignRaisedButton}" />
+
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+
+                </Grid>
+
+            </TabItem>
+            <TabItem
+                x:Name="tabViewTrangThaiDonHang"
+                Header="Trạng thái đơn hàng"
+                Loaded="tabViewTrangThaiDonHang_Loaded">
+                <Grid>
+                    <materialDesign:DrawerHost
+                        x:Name="DrawerHost"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        BottomDrawerBackground="{DynamicResource SecondaryHueLightBrush}"
+                        BottomDrawerCornerRadius="20 20 0 0">
+
+                        <materialDesign:DrawerHost.BottomDrawerContent>
+                            <StackPanel
+                                Margin="16"
+                                HorizontalAlignment="Center"
+                                Background="White"
+                                Orientation="Horizontal">
+                                <local:LyDoTraHangUC x:Name="ucLyDoTraHang" HorizontalAlignment="Center" />
+
+                            </StackPanel>
+                        </materialDesign:DrawerHost.BottomDrawerContent>
+                        <Grid Margin="10,0,10,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Expander
+                                Grid.Row="0"
+                                Margin="10,5,10,5"
+                                Background="#e3f2fd"
+                                ExpandDirection="Down"
+                                Foreground="#0d47a1">
+                                <Expander.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Margin="10,0"
+                                            VerticalAlignment="Center"
+                                            Foreground="#0d47a1"
+                                            Kind="HeadSyncOutline" />
+                                        <!--  Badged tạo ra thông báo số lượng ở góc trên bên phải  -->
+                                        <materialDesign:Badged
+                                            Margin="10,0"
+                                            VerticalAlignment="Center"
+                                            Badge="{Binding ElementName=lsvChoNguoiBanXacNhan, Path=Items.Count, UpdateSourceTrigger=PropertyChanged}"
+                                            BadgeBackground="#42a5f5"
+                                            BadgeForeground="White">
+                                            <TextBlock
+                                                Margin="5"
+                                                FontSize="20"
+                                                FontWeight="Bold"
+                                                Text="Chờ người bán xác nhận" />
+                                        </materialDesign:Badged>
+                                    </StackPanel>
+                                </Expander.Header>
+                                <ScrollViewer
+                                    HorizontalAlignment="Center"
+                                    HorizontalScrollBarVisibility="Auto"
+                                    VerticalScrollBarVisibility="Auto">
+                                    <ListView x:Name="lsvChoNguoiBanXacNhan">
+                                        <ListView.Resources>
+                                            <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">10</sys:Double>
+                                        </ListView.Resources>
+                                        <ListView.ItemContainerStyle>
+                                            <Style TargetType="ListViewItem">
+                                                <Setter Property="VerticalContentAlignment" Value="Center" />
+                                            </Style>
+                                        </ListView.ItemContainerStyle>
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridView.ColumnHeaderContainerStyle>
+                                                    <Style TargetType="{x:Type GridViewColumnHeader}">
+                                                        <Setter Property="Background" Value="LightBlue" />
+                                                        <Setter Property="Foreground" Value="Black" />
+                                                        <Setter Property="FontWeight" Value="Bold" />
+                                                    </Style>
+                                                </GridView.ColumnHeaderContainerStyle>
+                                                <GridViewColumn
+                                                    Width="45"
+                                                    DisplayMemberBinding="{Binding IdSP}"
+                                                    Header="Id đồ" />
+                                                <GridViewColumn
+                                                    Width="130"
+                                                    DisplayMemberBinding="{Binding TenSP}"
+                                                    Header="Tên đồ" />
+                                                <!--  Ảnh  -->
+                                                <GridViewColumn Width="100" Header="Ảnh">
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <Image Source="{Binding LinkAnhBia}" />
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+                                                <GridViewColumn
+                                                    Width="100"
+                                                    DisplayMemberBinding="{Binding SoLuongMua}"
+                                                    Header="Số lượng mua" />
+                                                <GridViewColumn
+                                                    Width="90"
+                                                    DisplayMemberBinding="{Binding Gia}"
+                                                    Header="Giá" />
+                                                <GridViewColumn
+                                                    Width="90"
+                                                    DisplayMemberBinding="{Binding PhiShip}"
+                                                    Header="Phí ship" />
+                                                <GridViewColumn
+                                                    Width="120"
+                                                    DisplayMemberBinding="{Binding TongThanhToan}"
+                                                    Header="Tổng thanh toán" />
+                                                <GridViewColumn
+                                                    Width="145"
+                                                    DisplayMemberBinding="{Binding Ngay}"
+                                                    Header="Ngày đặt hàng" />
+                                                <!--  Cột "Hủy đặt hàng"  -->
+
+                                                <GridViewColumn Width="120" Header="Hủy đặt hàng">
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <Button
+                                                                x:Name="btnHuyDatHang"
+                                                                Width="45"
+                                                                Height="45"
+                                                                Margin="8,0,0,0"
+                                                                materialDesign:ButtonAssist.CornerRadius="10"
+                                                                Background="#FFC33838"
+                                                                BorderBrush="White"
+                                                                BorderThickness="1"
+                                                                Click="btnHuyDatHang_Click"
+                                                                ToolTip="Hủy đặt hàng">
+                                                                <materialDesign:PackIcon
+                                                                    Width="15"
+                                                                    Height="15"
+                                                                    Foreground="White"
+                                                                    Kind="CloseOutline" />
+                                                            </Button>
+
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
+                                </ScrollViewer>
+
+                            </Expander>
+                            <Expander
+                                Grid.Row="1"
+                                Margin="10,5,10,5"
+                                Background="LightGreen"
+                                ExpandDirection="Down"
+                                Foreground="#0d47a1">
+                                <Expander.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Margin="10,0"
+                                            VerticalAlignment="Center"
+                                            Foreground="#0d47a1"
+                                            Kind="TruckCheckOutline" />
+                                        <!--  Badged tạo ra thông báo số lượng ở góc trên bên phải  -->
+                                        <materialDesign:Badged
+                                            Margin="10,0"
+                                            VerticalAlignment="Center"
+                                            Badge="{Binding ElementName=lsvChoGiaoHang, Path=Items.Count, UpdateSourceTrigger=PropertyChanged}"
+                                            BadgeBackground="#FF209214"
+                                            BadgeForeground="White">
+                                            <TextBlock
+                                                Margin="5"
+                                                FontSize="20"
+                                                FontWeight="Bold"
+                                                Text="Chờ giao hàng" />
+                                        </materialDesign:Badged>
+                                    </StackPanel>
+                                </Expander.Header>
+                                <ScrollViewer
+                                    HorizontalAlignment="Center"
+                                    HorizontalScrollBarVisibility="Auto"
+                                    VerticalScrollBarVisibility="Auto">
+                                    <ListView x:Name="lsvChoGiaoHang">
+                                        <ListView.Resources>
+                                            <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">10</sys:Double>
+                                        </ListView.Resources>
+                                        <ListView.ItemContainerStyle>
+                                            <Style TargetType="ListViewItem">
+                                                <Setter Property="VerticalContentAlignment" Value="Center" />
+
+                                            </Style>
+                                        </ListView.ItemContainerStyle>
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridView.ColumnHeaderContainerStyle>
+                                                    <Style TargetType="{x:Type GridViewColumnHeader}">
+                                                        <Setter Property="Background" Value="LightBlue" />
+                                                        <Setter Property="Foreground" Value="Black" />
+                                                        <Setter Property="FontWeight" Value="Bold" />
+                                                    </Style>
+                                                </GridView.ColumnHeaderContainerStyle>
+                                                <GridViewColumn
+                                                    Width="45"
+                                                    DisplayMemberBinding="{Binding IdSP}"
+                                                    Header="Id đồ" />
+                                                <GridViewColumn
+                                                    Width="130"
+                                                    DisplayMemberBinding="{Binding TenSP}"
+                                                    Header="Tên đồ" />
+                                                <!--  Ảnh  -->
+                                                <GridViewColumn Width="100" Header="Ảnh">
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <Image Source="{Binding LinkAnhBia}" />
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+                                                <GridViewColumn
+                                                    Width="100"
+                                                    DisplayMemberBinding="{Binding SoLuongMua}"
+                                                    Header="Số lượng mua" />
+                                                <GridViewColumn
+                                                    Width="90"
+                                                    DisplayMemberBinding="{Binding Gia}"
+                                                    Header="Giá" />
+                                                <GridViewColumn
+                                                    Width="90"
+                                                    DisplayMemberBinding="{Binding PhiShip}"
+                                                    Header="Phí ship" />
+                                                <GridViewColumn
+                                                    Width="120"
+                                                    DisplayMemberBinding="{Binding TongThanhToan}"
+                                                    Header="Tổng thanh toán" />
+                                                <GridViewColumn
+                                                    Width="145"
+                                                    DisplayMemberBinding="{Binding Ngay}"
+                                                    Header="Ngày dự kiến nhận hàng" />
+                                                <!--  Cột "btn Đã nhận hàng"  -->
+
+                                                <GridViewColumn Width="120" Header="Đã nhân hàng">
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <Button
+                                                                Width="45"
+                                                                Height="45"
+                                                                Margin="8,0,0,0"
+                                                                materialDesign:ButtonAssist.CornerRadius="10"
+                                                                BorderBrush="White"
+                                                                BorderThickness="1"
+                                                                Click="btnDaNhanHang_Click"
+                                                                ToolTip="Đã nhận">
+                                                                <materialDesign:PackIcon
+                                                                    Width="15"
+                                                                    Height="15"
+                                                                    Foreground="White"
+                                                                    Kind="CheckOutline" />
+                                                            </Button>
+
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+
+                                                <!--  Cột "btn Đã nhận hàng"  -->
+                                                <GridViewColumn Width="120" Header="Trả hàng">
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <Button
+                                                                x:Name="btnTraHang"
+                                                                Width="45"
+                                                                Height="45"
+                                                                Margin="8,0,0,0"
+                                                                materialDesign:ButtonAssist.CornerRadius="10"
+                                                                Background="#FFC33838"
+                                                                BorderBrush="White"
+                                                                BorderThickness="1"
+                                                                Click="btnTraHang_Click"
+                                                                Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}"
+                                                                CommandParameter="{x:Static Dock.Bottom}"
+                                                                ToolTip="Đã nhận">
+                                                                <materialDesign:PackIcon
+                                                                    Width="15"
+                                                                    Height="15"
+                                                                    Foreground="White"
+                                                                    Kind="KeyboardReturn" />
+                                                            </Button>
+
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
+                                </ScrollViewer>
+                            </Expander>
+                            <Expander
+                                Grid.Row="2"
+                                Margin="10,5,10,5"
+                                Background="LightPink"
+                                ExpandDirection="Down"
+                                Foreground="#0d47a1">
+                                <Expander.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Margin="10,0"
+                                            VerticalAlignment="Center"
+                                            Foreground="#0d47a1"
+                                            Kind="ClipboardCheckOutline" />
+                                        <!--  Badged tạo ra thông báo số lượng ở góc trên bên phải  -->
+                                        <materialDesign:Badged
+                                            Margin="10,0"
+                                            VerticalAlignment="Center"
+                                            Badge="{Binding ElementName=lsvDaNhan, Path=Items.Count, UpdateSourceTrigger=PropertyChanged}"
+                                            BadgeBackground="#FFF542A6"
+                                            BadgeForeground="White">
+                                            <TextBlock
+                                                Margin="5"
+                                                FontSize="20"
+                                                FontWeight="Bold"
+                                                Text="Đã nhận" />
+                                        </materialDesign:Badged>
+                                    </StackPanel>
+                                </Expander.Header>
+                                <ScrollViewer
+                                    HorizontalAlignment="Center"
+                                    HorizontalScrollBarVisibility="Auto"
+                                    VerticalScrollBarVisibility="Auto">
+                                    <ListView x:Name="lsvDaNhan">
+                                        <ListView.Resources>
+                                            <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">10</sys:Double>
+                                        </ListView.Resources>
+                                        <ListView.ItemContainerStyle>
+                                            <Style TargetType="ListViewItem">
+                                                <Setter Property="VerticalContentAlignment" Value="Center" />
+
+
+                                            </Style>
+                                        </ListView.ItemContainerStyle>
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridView.ColumnHeaderContainerStyle>
+                                                    <Style TargetType="{x:Type GridViewColumnHeader}">
+                                                        <Setter Property="Background" Value="LightBlue" />
+                                                        <Setter Property="Foreground" Value="Black" />
+                                                        <Setter Property="FontWeight" Value="Bold" />
+                                                    </Style>
+                                                </GridView.ColumnHeaderContainerStyle>
+                                                <GridViewColumn
+                                                    Width="45"
+                                                    DisplayMemberBinding="{Binding IdSP}"
+                                                    Header="Id đồ" />
+                                                <GridViewColumn
+                                                    Width="130"
+                                                    DisplayMemberBinding="{Binding TenSP}"
+                                                    Header="Tên đồ" />
+                                                <!--  Ảnh  -->
+                                                <GridViewColumn Width="100" Header="Ảnh">
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <Image Source="{Binding LinkAnhBia}" />
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+                                                <GridViewColumn
+                                                    Width="100"
+                                                    DisplayMemberBinding="{Binding SoLuongMua}"
+                                                    Header="Số lượng mua" />
+                                                <GridViewColumn
+                                                    Width="90"
+                                                    DisplayMemberBinding="{Binding Gia}"
+                                                    Header="Giá" />
+                                                <GridViewColumn
+                                                    Width="90"
+                                                    DisplayMemberBinding="{Binding PhiShip}"
+                                                    Header="Phí ship" />
+                                                <GridViewColumn
+                                                    Width="120"
+                                                    DisplayMemberBinding="{Binding TongThanhToan}"
+                                                    Header="Tổng thanh toán" />
+                                                <GridViewColumn
+                                                    Width="145"
+                                                    DisplayMemberBinding="{Binding Ngay}"
+                                                    Header="Ngày nhận hàng" />
+                                                <!--  Cột "btn Đánh giá người bán"  -->
+                                                <GridViewColumn Width="120" Header="Đánh giá người bán">
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <Button
+                                                                x:Name="btnDanhGia"
+                                                                Width="45"
+                                                                Height="45"
+                                                                Margin="8,0,0,0"
+                                                                materialDesign:ButtonAssist.CornerRadius="10"
+                                                                BorderBrush="White"
+                                                                BorderThickness="1"
+                                                                Click="btnDanhGia_Click"
+                                                                ToolTip="Đã nhận">
+                                                                <materialDesign:PackIcon
+                                                                    Width="15"
+                                                                    Height="15"
+                                                                    Foreground="White"
+                                                                    Kind="FileDocumentEditOutline" />
+                                                            </Button>
+
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
+                                </ScrollViewer>
+                            </Expander>
+                        </Grid>
+
+                    </materialDesign:DrawerHost>
+                </Grid>
+
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</UserControl>
